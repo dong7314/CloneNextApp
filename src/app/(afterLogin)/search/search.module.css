@@ -9,6 +9,7 @@
     flex-direction: column;
     align-items: stretch;
 }
+
 .searchTop {
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
@@ -22,6 +23,7 @@
     display: flex;
     align-items: center;
 }
+
 .backButton {
     width: 34px;
     height: 34px;
@@ -36,14 +38,17 @@
 .backButton:hover {
     background-color: rgba(15, 20, 25, 0.1);
 }
+
 .buttonZone {
     width: 56px;
 }
+
 .formZone {
     fleX: 1;
     height: 53px;
     width: 526px;
 }
+
 .homeFixed {
     position: fixed;
     z-index: 1;
@@ -54,10 +59,12 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
 }
+
 .homeTab {
     height: 53px;
     display: flex;
 }
+
 .homeTab > div {
     cursor: pointer;
     flex: 1;
@@ -70,6 +77,7 @@
 .homeTab a:hover {
     background-color: rgba(15,20,25, 0.1);
 }
+
 .tabIndicator {
     height: 4px;
     align-self: center;
@@ -80,6 +88,7 @@
     bottom: 0px;
     border-radius: 9999px;
 }
+
 .list {
     margin-top: 110px;
 }

@@ -10,6 +10,13 @@
   background-color: #fff;
   text-align: left;
 }
+
+@media (prefers-color-scheme: dark) {
+  .logOutButton {
+    background-color: transparent;
+  }
+}
+
 .logOutUserName {
   display: none;
 }

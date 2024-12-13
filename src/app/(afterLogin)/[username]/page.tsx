@@ -1,13 +1,13 @@
-import style from "./profile.module.css";
+import style from './profile.module.css';
 import Post from "@/app/(afterLogin)/_component/Post";
-import BackButton from "../_component/BackButton";
-
+import BackButton from "@/app/(afterLogin)/_component/BackButton";
 export default function Profile() {
   const user = {
-    id: "zerohch0",
-    nickname: "제로초",
-    image: "/5Udwvqim.jpg",
+    id: 'zerohch0',
+    nickname: '제로초',
+    image: '/5Udwvqim.jpg'
   };
+
   return (
     <main className={style.main}>
       <div className={style.header}>
@@ -16,7 +16,7 @@ export default function Profile() {
       </div>
       <div className={style.userZone}>
         <div className={style.userImage}>
-          <img src={user.image} alt={user.id} />
+          <img src={user.image} alt={user.id}/>
         </div>
         <div className={style.userName}>
           <div>{user.nickname}</div>
@@ -33,5 +33,5 @@ export default function Profile() {
         <Post />
       </div>
     </main>
-  );
+  )
 }
