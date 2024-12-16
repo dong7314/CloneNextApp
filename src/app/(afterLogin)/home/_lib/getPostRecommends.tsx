@@ -3,14 +3,12 @@ type Props = {
 };
 
 export async function getPostRecommends({ pageParam }: Props) {
-  console.log(pageParam);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/postRecommends?cursor=${pageParam}`,
     {
       next: {
         tags: ["posts", "recommends"],
       },
-      cache: "force-cache",
     }
   );
 
