@@ -13,10 +13,28 @@ import SinglePost from "@/app/(afterLogin)/[username]/status/[id]/_component/Sin
 import React from "react";
 import Comments from "@/app/(afterLogin)/[username]/status/[id]/_component/Comments";
 import ImageZone from "@/app/(afterLogin)/@modal/[username]/status/[id]/photo/[photoId]/_component/ImageZone";
+import { Metadata } from "next";
+import { Post } from "@/model/Post";
+import { getUserServer } from "@/app/(afterLogin)/[username]/_lib/getUserServer";
+import { getSinglePostServer } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePostServer";
+import { User } from "@/model/User";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; username: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username, id } = await params;
+  const [user, post]: [User, Post] = await Promise.all([
+    getUserServer({ queryKey: ["users", username] }),
+    getSinglePostServer({ queryKey: ["posts", id] }),
+  ]);
+  return {
+    title: `Z에서 ${user.nickname} 님 : ${post.content}`,
+    description: post.content,
+  };
+}
+
 export default async function Default(props: Props) {
   const { id } = await props.params;
   const queryClient = new QueryClient();

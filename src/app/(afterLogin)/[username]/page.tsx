@@ -4,20 +4,34 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { getUser } from "@/app/(afterLogin)/[username]/_lib/getUser";
 import { getUserPosts } from "@/app/(afterLogin)/[username]/_lib/getUserPosts";
 import UserPosts from "@/app/(afterLogin)/[username]/_component/UserPosts";
 import UserInfo from "@/app/(afterLogin)/[username]/_component/UserInfo";
+import { getUserServer } from "./_lib/getUserServer";
+import { auth } from "@/auth";
+import { Metadata } from "next";
+import { User } from "@/model/User";
 
 type Props = {
   params: Promise<{ username: string }>;
 };
+
+export async function generateMetadata({params}: Props) {
+  const { username } = await params;
+  const user: User = await getUserServer({ queryKey: ["users", username] });
+  return {
+    title: `${user.nickname} (${user.id}) / Z`,
+    description: `${user.nickname} (${user.id}) 프로필`,
+  }
+}
+
 export default async function Profile(props: Props) {
   const { username } = await props.params;
+  const session = await auth();
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["users", username],
-    queryFn: getUser,
+    queryFn: getUserServer,
   });
   await queryClient.prefetchQuery({
     queryKey: ["posts", "users", "recommends"],
@@ -28,7 +42,7 @@ export default async function Profile(props: Props) {
   return (
     <main className={style.main}>
       <HydrationBoundary state={dehydratedState}>
-        <UserInfo username={username} />
+        <UserInfo username={username} session={session} />
         <div>
           <UserPosts username={username} />
         </div>
